@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Sent Successfully</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0a0a0a;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 212, 255, 0.1);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            33% { transform: translateY(-100px) translateX(50px) rotate(120deg); }
+            66% { transform: translateY(-50px) translateX(-50px) rotate(240deg); }
+        }
+
+        /* Background gradient effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(26, 26, 26, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 60px 50px;
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            animation: slideUp 0.8s ease-out;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            border-radius: 30px 30px 0 0;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            position: relative;
+            animation: scaleIn 0.6s ease-out 0.3s backwards;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.4));
+        }
+
+        .checkmark-circle {
+            stroke-dasharray: 380;
+            stroke-dashoffset: 380;
+            animation: drawCircle 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes drawCircle {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .checkmark-check {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawCheck 0.8s ease-out 1.2s forwards;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            animation: fadeIn 0.6s ease-out 0.6s backwards;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+            font-weight: 700;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        p {
+            font-size: 18px;
+            color: #adb5bd;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            animation: fadeIn 0.6s ease-out 0.8s backwards;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 50px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
+            animation: fadeIn 0.6s ease-out 1s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.5), 0 0 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Confetti effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Tablet & Mobile Responsive */
+        @media only screen and (max-width: 900px) {
+            body::before {
+                width: 600px;
+                height: 600px;
+            }
+
+            .particle {
+                opacity: 0.6;
+            }
+
+            .container {
+                padding: 50px 40px;
+                margin: 30px;
+                max-width: 85%;
+            }
+
+            .success-icon {
+                width: 110px;
+                height: 110px;
+                margin-bottom: 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+                margin-bottom: 12px;
+            }
+
+            p {
+                font-size: 17px;
+                margin-bottom: 35px;
+                line-height: 1.7;
+            }
+
+            .btn {
+                padding: 15px 45px;
+                font-size: 17px;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            body::before {
+                width: 500px;
+                height: 500px;
+            }
+
+            .particle {
+                opacity: 0.5;
+            }
+
+            .container {
+                padding: 40px 30px;
+                margin: 20px;
+                max-width: 90%;
+                border-radius: 25px;
+            }
+
+            .success-icon {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+                margin-bottom: 10px;
+                line-height: 1.2;
+            }
+
+            p {
+                font-size: 16px;
+                margin-bottom: 30px;
+                line-height: 1.6;
+                padding: 0 5px;
+            }
+
+            .btn {
+                padding: 14px 40px;
+                font-size: 16px;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .btn:hover {
+                transform: translateY(-2px);
+            }
+        }
+
+        @media only screen and (max-width: 375px) {
+            body::before {
+                width: 400px;
+                height: 400px;
+            }
+
+            .particle {
+                opacity: 0.4;
+            }
+
+            .container {
+                padding: 35px 25px;
+                margin: 15px;
+                border-radius: 20px;
+            }
+
+            .success-icon {
+                width: 85px;
+                height: 85px;
+                margin-bottom: 18px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+
+            p {
+                font-size: 14px;
+                margin-bottom: 25px;
+                line-height: 1.5;
+            }
+
+            .btn {
+                padding: 13px 35px;
+                font-size: 15px;
+                max-width: 250px;
+            }
+        }
+
+        @media only screen and (max-width: 320px) {
+            body::before {
+                width: 350px;
+                height: 350px;
+            }
+
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .success-icon {
+                width: 75px;
+                height: 75px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            p {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+
+            .btn {
+                padding: 12px 30px;
+                font-size: 14px;
+                max-width: 220px;
+            }
+        }
+
+        /* Landscape Orientation */
+        @media only screen and (max-height: 500px) and (orientation: landscape) {
+            .container {
+                padding: 30px 40px;
+                margin: 20px auto;
+                max-width: 600px;
+            }
+
+            .success-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+
+            p {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .btn {
+                padding: 12px 35px;
+                font-size: 15px;
+            }
+
+            .particle {
+                opacity: 0.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background particles -->
+    <div class="particle" style="width: 80px; height: 80px; top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="width: 60px; height: 60px; top: 70%; left: 80%; animation-delay: 2s;"></div>
+    <div class="particle" style="width: 100px; height: 100px; top: 50%; left: 5%; animation-delay: 4s;"></div>
+    <div class="particle" style="width: 50px; height: 50px; top: 20%; left: 85%; animation-delay: 1s;"></div>
+    <div class="particle" style="width: 70px; height: 70px; top: 80%; left: 15%; animation-delay: 3s;"></div>
+
+    <div class="container">
+        <div class="success-icon">
+            <svg viewBox="0 0 120 120">
+                <circle class="checkmark-circle" cx="60" cy="60" r="54" fill="none" stroke="#00d4ff" stroke-width="6"/>
+                <path class="checkmark-check" fill="none" stroke="#00d4ff" stroke-width="6" stroke-linecap="round" d="M35 60 L52 77 L85 44"/>
+            </svg>
+        </div>
+        
+        <h1>Thank You!</h1>
+        <p>Your message has been sent successfully. We'll get back to you as soon as possible.</p>
+        
+        <button class="btn" onclick="handleClick()">
+            <span>Back to Home</span>
+        </button>
+    </div>
+
+    <script>
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#00d4ff', '#7c3aed', '#ec4899', '#ffd43b'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // Trigger confetti on page load
+        window.addEventListener('load', () => {
+            setTimeout(createConfetti, 1000);
+        });
+
+        function handleClick() {
+            alert('Redirecting to home page...');
+            // window.location.href = '/'; // Uncomment this to actually redirect
+        }
+    </script>
+</body>
+</html>
